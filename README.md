@@ -1,60 +1,67 @@
-Ghost Kitchen Platform
-Powered by Node.js, Express & Modern Frontend Architecture
+# Ghost Kitchen Platform
 
-Project Overview
-Problem Statement
-The "Cloud Kitchen" or "Ghost Kitchen" model—restaurants that exist solely for delivery without a dine-in option—is the fastest-growing segment in the food industry. However, managing multiple kitchen brands, inventory, and incoming orders without a centralized digital backbone leads to operational chaos, lost orders, and poor customer experience. Traditional monolithic systems (often PHP-based) are struggling to keep up with the real-time demands of modern food delivery logistics.
+> **Powered by Node.js, Express & Modern Frontend Architecture**
 
-Solution Statement
-The Ghost Kitchen Platform is a full-stack web application designed to centralize the operations of a multi-brand virtual kitchen. By migrating to a robust Node.js environment, this system provides a unified interface for Administrators to manage kitchen metrics and menus, while offering customers a seamless, responsive ordering experience. It decouples the frontend views from the backend API, ensuring scalability, faster load times, and a smoother data flow compared to legacy architectures.
+## Project Overview
+![Project Overview](diagram_folder/project_overview.png)
 
-Core Concept & Value
-Why This Architecture?
-Moving away from tightly coupled legacy code, this project adopts a Service-Oriented approach. The backend acts as a RESTful API provider, while the frontend consumes these APIs dynamically. This ensures that the logic for calculating cart totals, validating user sessions, and routing orders is handled efficiently on the server, while the client browser focuses solely on presentation.
+### Problem Statement
 
-Key Features
-Role-Based Access Control (RBAC):
+The "Cloud Kitchen" or "Ghost Kitchen" model—restaurants that exist solely for delivery without a dine-in option—is the fastest-growing segment in the food industry. However, managing multiple kitchen brands, inventory, and incoming orders without a centralized digital backbone leads to operational chaos, lost orders, and poor customer experience. Traditional monolithic systems are struggling to keep up with the real-time demands of modern food delivery logistics.
 
-Admin Panel: distinct dashboards (admin-dashboard.html) for overseeing kitchen performance and managing global settings.
+### Solution Statement
 
-Kitchen Management: Dedicated views (kitchen-dashboard.html) for specific kitchen branches to manage their incoming orders.
+The **Ghost Kitchen Platform** is a full-stack web application designed to centralize the operations of a multi-brand virtual kitchen. By migrating to a robust **Node.js environment**, this system provides a unified interface for Administrators to manage kitchen metrics and menus, while offering customers a seamless, responsive ordering experience. It decouples the frontend views from the backend API, ensuring scalability, faster load times, and a smoother data flow compared to legacy architectures.
 
-Dynamic Menu System: A flexible backend structure (menu.js, kitchens.js) that allows for real-time updates to items, prices, and availability without server downtime.
+-----
 
-Secure Authentication: Custom middleware (middleware/auth.js) ensures that API routes are protected and user sessions are validated before processing sensitive data like checkout.
+## Core Concept & Value
 
-Full-Cycle Order Flow: From browsing (kitchens.html) to Cart management (cart.js) and final confirmation (order-confirmation.html), the system handles the complete lifecycle of a transaction.
+### Why This Architecture?
 
-Modular Backend Routing: The routes/ folder separates concerns logically (User, Admin, Dashboard, Auth), making the codebase easy to maintain and scale.
+Moving away from tightly coupled legacy code, this project adopts a **Service-Oriented approach**. The backend acts as a RESTful API provider, while the frontend consumes these APIs dynamically. This ensures that the logic for calculating cart totals, validating user sessions, and routing orders is handled efficiently on the server, while the client browser focuses solely on presentation.
 
-Architecture
-Design Philosophy
-The architecture follows the MVC (Model-View-Controller) pattern, adapted for a modern API-centric workflow:
+### Key Features
 
-Separation of Concerns: The frontend/js folder contains specific logic files (e.g., api.js, auth.js) that handle data fetching, keeping the HTML views clean and logic-free.
+* **Role-Based Access Control (RBAC):**
+    * *Admin Panel:* distinct dashboards (`admin-dashboard.html`) for overseeing kitchen performance and managing global settings.
+    * *Kitchen Management:* Dedicated views (`kitchen-dashboard.html`) for specific kitchen branches to manage their incoming orders.
+* **Dynamic Menu System:** A flexible backend structure (`menu.js`, `kitchens.js`) that allows for real-time updates to items, prices, and availability without server downtime.
+* **Secure Authentication:** Custom middleware (`middleware/auth.js`) ensures that API routes are protected and user sessions are validated before processing sensitive data like checkout.
+* **Full-Cycle Order Flow:** From browsing (`kitchens.html`) to Cart management (`cart.js`) and final confirmation (`order-confirmation.html`), the system handles the complete lifecycle of a transaction.
+* **Modular Backend Routing:** The `routes/` folder separates concerns logically (User, Admin, Dashboard, Auth), making the codebase easy to maintain and scale.
 
-Centralized Configuration: Database connections and environment configurations are isolated in backend/config, ensuring security and easy environment switching (Dev/Prod).
+-----
 
-Middleware-First Approach: All requests pass through a security layer (middleware/auth.js) before reaching the controllers, ensuring a "secure by default" architecture.
+## Architecture
 
-High-Level Component Breakdown
-1. The Backend Core (Node/Express) The server.js and index.js files initialize the Express application, encompassing middleware configuration, CORS settings, and route aggregation.
+![Architecture Diagram](diagram_folder/Architecture.png)
 
-2. The API Layer (Routes) Located in backend/routes, these files define the endpoints:
+### Design Philosophy
 
-auth.js: Handles Login/Register logic.
+The architecture follows the **MVC (Model-View-Controller)** pattern, adapted for a modern API-centric workflow:
 
-admin.js: Administrative privileges and data retrieval.
+* **Separation of Concerns:** The `frontend/js` folder contains specific logic files (e.g., `api.js`, `auth.js`) that handle data fetching, keeping the HTML views clean and logic-free.
+* **Centralized Configuration:** Database connections and environment configurations are isolated in `backend/config`, ensuring security and easy environment switching (Dev/Prod).
+* **Middleware-First Approach:** All requests pass through a security layer (`middleware/auth.js`) before reaching the controllers, ensuring a "secure by default" architecture.
 
-order.js: Processing customer orders and status updates.
+### High-Level Component Breakdown
 
-3. The Frontend Logic (Vanilla JS) Located in frontend/js, these scripts act as the "Controller" for the client side. api.js likely serves as a central HTTP client wrapper to communicate with the backend.
+**1. The Backend Core (Node/Express)**
+The `server.js` and `index.js` files initialize the Express application, encompassing middleware configuration, CORS settings, and route aggregation.
 
-Project Structure
-Based on the provided repository views, the structure is organized as follows:
+**2. The API Layer (Routes)**
+Located in `backend/routes`, these files define the endpoints:
+* `auth.js`: Handles Login/Register logic.
+* `admin.js`: Administrative privileges and data retrieval.
+* `order.js`: Processing customer orders and status updates.
 
-Plaintext
+**3. The Frontend Logic (Vanilla JS)**
+Located in `frontend/js`, these scripts act as the "Controller" for the client side. `api.js` acts as a central HTTP client wrapper to communicate with the backend.
 
+### Project Structure
+
+```text
 GHOST-KITCHEN/
 ├── backend/                  # Server-Side Logic
 │   ├── config/
@@ -84,7 +91,7 @@ GHOST-KITCHEN/
 │   │   ├── cart.js
 │   │   ├── checkout.js
 │   │   ├── main.js
-│   │   └── ... (Page specific scripts)
+│   │   └── ... 
 │   └── user-pages/           # Public/Customer Views
 │       ├── about.html
 │       ├── cart.html
@@ -97,61 +104,62 @@ GHOST-KITCHEN/
 ├── .gitignore
 ├── package.json              # Dependencies
 └── server.js                 # Root entry (Development)
-Workflow
+
+-----
+
+## Workflow
+![Workflow Diagram](diagram_folder/Workflow.png)
+
 The system operates on a linear, event-driven workflow:
 
-Initialization: The Node server starts, connecting to the database defined in config/database.js.
+1.  **Initialization:** The Node server starts, connecting to the database defined in `config/database.js`.
+2.  **User Entry:** A customer lands on `index.html`. `main.js` and `kitchens.js` fetch available restaurants from the `routes/kitchens.js` API.
+3.  **Authentication:** When a user logs in via `login.html`, `frontend/js/auth.js` sends credentials to `backend/routes/auth.js`. On success, a token/session is established.
+4.  **Transaction:**
+    * Items are added to the cart (managed by `cart.js`).
+    * Checkout triggers `checkout.js`, sending data to `routes/order.js`.
+5.  **Fulfillment:** The order data is immediately visible on the `admin/kitchen-dashboard.html` for the kitchen staff to prepare.
 
-User Entry: A customer lands on index.html. main.js and kitchens.js fetch available restaurants from the routes/kitchens.js API.
+-----
 
-Authentication: When a user logs in via login.html, frontend/js/auth.js sends credentials to backend/routes/auth.js. On success, a token/session is established.
+## Essential Tools and Utilities
 
-Transaction:
+**Backend Ecosystem**
 
-Items are added to the cart (managed by cart.js).
+* **Node.js:** The runtime environment executing the core logic.
+* **Express.js:** The web framework handling routing and middleware.
+* **Database (SQL/NoSQL):** Integrated via `config/database.js`.
+* **Dotenv:** Managing sensitive keys and ports.
 
-Checkout triggers checkout.js, sending data to routes/order.js.
+**Frontend Ecosystem**
 
-Fulfillment: The order data is immediately visible on the admin/kitchen-dashboard.html for the kitchen staff to prepare.
+* **HTML5/CSS3:** Structure and styling of the application.
+* **Vanilla JavaScript (ES6+):** Handling DOM manipulation and API calls without heavy framework overhead.
+* **Fetch API:** Used within `js/api.js` for asynchronous communication with the backend.
 
-Essential Tools and Utilities
-Backend Ecosystem
+-----
 
-Node.js: The runtime environment executing the core logic.
+## Installation
 
-Express.js: The web framework handling routing and middleware.
+### Prerequisites
 
-Database (SQL/NoSQL): Integrated via config/database.js.
+* Node.js (v16.0 or higher)
+* NPM (Node Package Manager)
+* Git
 
-Dotenv: Managing sensitive keys and ports.
+### Step-by-Step Setup
 
-Frontend Ecosystem
+**1. Clone the Repository**
 
-HTML5/CSS3: Structure and styling of the application.
-
-Vanilla JavaScript (ES6+): Handling DOM manipulation and API calls without heavy framework overhead.
-
-Fetch API: Used within js/api.js for asynchronous communication with the backend.
-
-Installation
-Prerequisites
-Node.js (v16.0 or higher)
-
-NPM (Node Package Manager)
-
-Git
-
-Step-by-Step Setup
-1. Clone the Repository
-
-Bash
-
-git clone https://github.com/your-username/ghost-kitchen-platform
+```bash
+git clone [https://github.com/your-username/ghost-kitchen-platform](https://github.com/your-username/ghost-kitchen-platform)
 cd ghost-kitchen-platform
-2. Install Dependencies
 
-Bash
+Markdown
 
+**2. Install Dependencies**
+
+```bash
 npm install
 3. Configure Environment Create a .env file in the root directory. Use the structure typically found in standard Node apps:
 
