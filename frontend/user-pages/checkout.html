@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkout - Ghost Kitchen</title>
+    <meta name="description" content="Complete your order and choose your payment method for food delivery from Ghost Kitchen.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50 rounded-b-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-playfair text-orange-600 font-bold rounded-md">GHOST-KITCHEN</a>
+            
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="kitchens.html" class="text-gray-600 hover:text-orange-600 transition rounded-md">Kitchens</a>
+                <a href="order.html" class="text-gray-600 hover:text-orange-600 transition rounded-md">My Orders</a>
+                <a href="cart.html" class="text-gray-600 hover:text-orange-600 transition relative">Cart
+                    <span id="cart-count-header" class="absolute top-0 right-0 -mt-2 -mr-4 bg-orange-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+            </nav>
+            
+            <!-- Auth Buttons Container -->
+            <div class="hidden md:flex items-center space-x-4" id="auth-buttons-container">
+                <!-- Login/Register Buttons (shown by default) -->
+                <div id="login-register-buttons" class="flex space-x-4">
+                    <a href="login.html" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-full hover:bg-gray-100 transition">Log In</a>
+                    <a href="register.html" class="px-4 py-2 bg-orange-600 text-white rounded-full hover:bg-orange-700 transition">Register</a>
+                </div>
+                <!-- Welcome Message & Logout (hidden by default) -->
+                <div id="user-info" class="hidden items-center space-x-4">
+                    <span id="welcome-message" class="font-semibold text-gray-700"></span>
+                    <button id="logout-btn" class="px-4 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition" type="button">
+                        Logout
+                    </button>
+                </div>
+            </div>
+            
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 rounded-md focus:outline-none" aria-label="Toggle mobile menu" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="kitchens.html" class="block py-2 text-gray-600 hover:text-orange-600 rounded-md">Kitchens</a>
+            <a href="order.html" class="block py-2 text-gray-600 hover:text-orange-600 rounded-md">My Orders</a>
+            <a href="cart.html" class="block py-2 text-gray-600 hover:text-orange-600 rounded-md">Cart</a>
+            <div class="border-t border-gray-200 mt-4 pt-4 space-y-2">
+                <!-- Mobile Login/Register -->
+                <div id="mobile-login-register-buttons" class="space-y-2">
+                    <a href="login.html" class="block w-full text-center px-4 py-2 text-gray-600 border border-gray-300 rounded-full hover:bg-gray-100 transition">Log In</a>
+                    <a href="register.html" class="block w-full text-center px-4 py-2 bg-orange-600 text-white rounded-full hover:bg-orange-700 transition">Register</a>
+                </div>
+                <!-- Mobile Welcome/Logout -->
+                <div id="mobile-user-info" class="hidden space-y-2">
+                     <span id="mobile-welcome-message" class="block text-center font-semibold text-gray-700 py-2"></span>
+                     <button id="mobile-logout-btn" class="block w-full text-center px-4 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition" type="button">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-8 min-h-screen">
+        <div class="container mx-auto px-6">
+            <!-- Checkout Progress -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <div class="flex items-center justify-center space-x-8">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">✓</div>
+                        <span class="ml-2 text-sm font-medium text-gray-600">Cart</span>
+                    </div>
+                    <div class="w-16 h-1 bg-orange-600"></div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                        <span class="ml-2 text-sm font-medium text-orange-600">Checkout</span>
+                    </div>
+                    <div class="w-16 h-1 bg-gray-300"></div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                        <span class="ml-2 text-sm font-medium text-gray-600">Confirmation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Checkout Form -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-xl shadow-sm p-8">
+                        <h1 class="text-3xl font-playfair font-bold text-gray-800 mb-8">Checkout</h1>
+                        
+                        <form id="checkout-form" class="space-y-8">
+                            <!-- Delivery Information -->
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Delivery Information</h2>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                        <input type="text" id="firstName" name="firstName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition">
+                                    </div>
+                                    <div>
+                                        <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition">
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6">
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition">
+                                </div>
+
+                                <div class="mt-6">
+                                    <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Delivery Address</label>
+                                    <textarea id="address" name="address" rows="3" required placeholder="Enter your complete delivery address" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition resize-none"></textarea>
+                                </div>
+
+                                <div class="grid md:grid-cols-3 gap-6 mt-6">
+                                    <div>
+                                        <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                                        <input type="text" id="city" name="city" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition">
+                                    </div>
+                                    <div>
+                                        <label for="state" class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                                        <input type="text" id="state" name="state" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition">
+                                    </div>
+                                    <div>
+                                        <label for="pincode" class="block text-sm font-medium text-gray-700 mb-2">PIN Code</label>
+                                        <input type="text" id="pincode" name="pincode" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Delivery Time -->
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Delivery Time</h2>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                                        <input type="radio" name="deliveryTime" value="asap" checked class="text-orange-600 focus:ring-orange-500">
+                                        <div class="ml-3">
+                                            <div class="font-medium text-gray-800">ASAP</div>
+                                            <div class="text-sm text-gray-600">Deliver as soon as possible</div>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                                        <input type="radio" name="deliveryTime" value="scheduled" class="text-orange-600 focus:ring-orange-500">
+                                        <div class="ml-3">
+                                            <div class="font-medium text-gray-800">Schedule</div>
+                                            <div class="text-sm text-gray-600">Choose delivery time</div>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div id="scheduled-time" class="hidden mt-4 grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="deliveryDate" class="block text-sm font-medium text-gray-700 mb-2">Delivery Date</label>
+                                        <input type="date" id="deliveryDate" name="deliveryDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition">
+                                    </div>
+                                    <div>
+                                        <label for="deliveryTimeSlot" class="block text-sm font-medium text-gray-700 mb-2">Time Slot</label>
+                                        <select id="deliveryTimeSlot" name="deliveryTimeSlot" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition">
+                                            <option value="">Select time slot</option>
+                                            <option value="12:00-13:00">12:00 PM - 1:00 PM</option>
+                                            <option value="13:00-14:00">1:00 PM - 2:00 PM</option>
+                                            <option value="14:00-15:00">2:00 PM - 3:00 PM</option>
+                                            <option value="15:00-16:00">3:00 PM - 4:00 PM</option>
+                                            <option value="16:00-17:00">4:00 PM - 5:00 PM</option>
+                                            <option value="17:00-18:00">5:00 PM - 6:00 PM</option>
+                                            <option value="18:00-19:00">6:00 PM - 7:00 PM</option>
+                                            <option value="19:00-20:00">7:00 PM - 8:00 PM</option>
+                                            <option value="20:00-21:00">8:00 PM - 9:00 PM</option>
+                                            <option value="21:00-22:00">9:00 PM - 10:00 PM</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payment Method -->
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Payment Method</h2>
+                                <div class="space-y-4">
+                                    <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                                        <input type="radio" name="paymentMethod" value="upi" checked class="text-orange-600 focus:ring-orange-500">
+                                        <div class="ml-3 flex items-center">
+                                            <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none">
+                                                <rect x="2" y="4" width="20" height="16" rx="2" fill="#FF6B35"/>
+                                                <path d="M8 12h8M8 8h8M8 16h4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            <div>
+                                                <div class="font-medium text-gray-800">UPI Payment</div>
+                                                <div class="text-sm text-gray-600">Pay using UPI (Google Pay, PhonePe, Paytm, etc.)</div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                                        <input type="radio" name="paymentMethod" value="cod" class="text-orange-600 focus:ring-orange-500">
+                                        <div class="ml-3 flex items-center">
+                                            <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none">
+                                                <circle cx="12" cy="12" r="10" fill="#10B981"/>
+                                                <path d="M8 12l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <div>
+                                                <div class="font-medium text-gray-800">Cash on Delivery</div>
+                                                <div class="text-sm text-gray-600">Pay when your order arrives</div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Special Instructions -->
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Special Instructions (Optional)</h2>
+                                <textarea id="instructions" name="instructions" rows="3" placeholder="Any special instructions for the kitchen or delivery..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition resize-none"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl shadow-sm p-6 sticky top-24">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">Order Summary</h2>
+                        
+                        <!-- Order Items -->
+                        <div id="checkout-items" class="space-y-4 mb-6">
+                            <!-- Items will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Order Totals -->
+                        <div class="border-t border-gray-200 pt-4 space-y-3">
+                            <div class="flex justify-between text-gray-600">
+                                <span>Subtotal</span>
+                                <span id="checkout-subtotal">₹0</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span>Delivery Fee</span>
+                                <span>₹40</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span>GST (5%)</span>
+                                <span id="checkout-gst">₹0</span>
+                            </div>
+                            <div class="border-t border-gray-200 pt-3">
+                                <div class="flex justify-between text-xl font-bold text-gray-800">
+                                    <span>Total</span>
+                                    <span id="checkout-total">₹40</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Place Order Button -->
+                        <button id="place-order-btn" type="button" class="w-full bg-orange-600 text-white py-4 rounded-lg font-semibold hover:bg-orange-700 transition text-lg mt-6">
+                            Place Order
+                        </button>
+
+                        <!-- Security Info -->
+                        <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                            <div class="flex items-center text-green-800 text-sm">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Your payment information is secure and encrypted
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-12 rounded-t-xl mt-16">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Brand Info -->
+                <div>
+                    <h3 class="text-xl font-playfair font-bold mb-4">GHOST-KITCHEN</h3>
+                    <p class="text-gray-400">Your favorite food, delivered.</p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="font-bold mb-4">Quick Links</h3>
+                    <ul>
+                        <li class="mb-2"><a href="about.html" class="text-gray-400 hover:text-white rounded-md">About Us</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-gray-400 hover:text-white rounded-md">Contact</a></li>
+                        <li class="mb-2"><a href="faq.html" class="text-gray-400 hover:text-white rounded-md">FAQ</a></li>
+                    </ul>
+                </div>
+                <!-- Legal Links -->
+                <div>
+                    <h3 class="font-bold mb-4">Legal</h3>
+                    <ul>
+                        <li class="mb-2"><a href="terms.html" class="text-gray-400 hover:text-white rounded-md">Terms of Service</a></li>
+                        <li class="mb-2"><a href="privacy.html" class="text-gray-400 hover:text-white rounded-md">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <!-- Social Media Links -->
+                <div>
+                    <h3 class="font-bold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white rounded-md" aria-label="Facebook" title="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white rounded-md" aria-label="Twitter" title="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.793 4.649-.65.177-1.354.23-2.06.087.625 1.901 2.443 3.282 4.593 3.321-1.625 1.272-3.674 2.022-5.903 2.022-.382 0-.76-.022-1.13-.067 2.099 1.353 4.605 2.148 7.316 2.148 8.774 0 13.59-7.277 13.59-13.596 0-.207-.005-.412-.013-.617.932-.672 1.734-1.511 2.37-2.50z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Copyright Information -->
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                &copy; 2025 GHOST-KITCHEN. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js" type="module"></script>
+    <script src="../js/main.js" type="module"></script>
+    <script src="../js/checkout.js" type="module"></script>
+</body>
+</html>
