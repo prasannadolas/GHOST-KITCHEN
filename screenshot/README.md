@@ -4,11 +4,11 @@
 > **Final Year Project | Sathaye College | BSc Information Technology (2023-2026)**
 
 ##  Introduction
-
 This project is a fully functional web-based application designed to manage the operations of a **Ghost Kitchen** (Cloud Kitchen). Unlike traditional dining, ghost kitchens focus solely on delivery. This system connects customers with multiple virtual kitchen brands, managing the entire flow from order placement to kitchen processing.
 
-##  Why We Chose This Topic?
+![alt text](screenshot/1.png)
 
+##  Why We Chose This Topic?
 We selected the **Cloud Kitchen** model for our final year project because:
 
 1. **Industry Trend:** It addresses the booming demand for delivery-only food models.
@@ -93,6 +93,8 @@ GHOST-KITCHEN/
 └── server.js                    # Application Entry Point
 
 ```
+
+![alt text](13.png)
 
 ##  Installation & Setup Guide
 
