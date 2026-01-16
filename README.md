@@ -94,7 +94,7 @@ GHOST-KITCHEN/
 
 ```
 
-![alt text](13.png)
+![alt text](screenshot/13.png)
 
 ##  Installation & Setup Guide
 
