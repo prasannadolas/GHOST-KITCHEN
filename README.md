@@ -139,15 +139,15 @@ node server.js
 ## 📸 Website UI Screenshots
 
 ### 1. Landing Page & Kitchen Selection
-![alt text](image.png)
-![alt text](image-1.png)
+![alt text](screenshot/image.png)
+![alt text](screenshot/image-1.png)
 
 ### 2. Ordering Process
-![alt text](image-2.png)
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
+![alt text](screenshot/image-2.png)
+![alt text](screenshot/image-3.png)
+![alt text](screenshot/image-4.png)
+![alt text](screenshot/image-5.png)
+![alt text](screenshot/image-6.png)
 
 
 ## 🏁 Conclusion
