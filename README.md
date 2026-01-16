@@ -1,58 +1,54 @@
-# 🥡 Ghost Kitchen Platform
-### Powered by Node.js, Express & Modern Frontend Architecture
 
-> **A scalable, full-stack solution for managing multi-brand virtual kitchens.**
+#  Ghost Kitchen Management System
 
----
+> **Final Year Project | BSc Information Technology (2025-2026)**
 
-## 📖 Project Overview
+##  Introduction
 
-### Problem Statement
-The "Cloud Kitchen" or "Ghost Kitchen" model is the fastest-growing segment in the food industry. However, managing multiple kitchen brands, inventory, and incoming orders without a centralized digital backbone leads to operational chaos. Traditional monolithic systems struggle to keep up with the real-time demands of modern food delivery logistics.
+This project is a fully functional web-based application designed to manage the operations of a **Ghost Kitchen** (Cloud Kitchen). Unlike traditional dining, ghost kitchens focus solely on delivery. This system connects customers with multiple virtual kitchen brands, managing the entire flow from order placement to kitchen processing.
 
-### Solution
-The **Ghost Kitchen Platform** is a full-stack web application designed to centralize operations. By migrating to a robust **Node.js** environment, this system provides a unified interface for Administrators to manage metrics and menus, while offering customers a seamless ordering experience. It decouples the frontend views from the backend API, ensuring scalability and faster load times.
+##  Why We Chose This Topic?
 
----
+We selected the **Cloud Kitchen** model for our final year project because:
 
-## 🚀 Key Features
+1. **Industry Trend:** It addresses the booming demand for delivery-only food models.
+2. **Complex Data Handling:** It solves a "Many-to-Many" operational problem (One Platform  Many Kitchens  Many Customers), demonstrating advanced backend logic.
+3. **Real-World Utility:** It creates a centralized dashboard for managing menus, orders, and kitchen performance without physical storefronts.
 
-* **Role-Based Access Control (RBAC):**
-    * **Admin Panel:** Global dashboards (`admin-dashboard.html`) for metrics and settings.
-    * **Kitchen Dashboard:** Dedicated views (`kitchen-dashboard.html`) for branches to manage incoming orders.
-* **Dynamic Menu System:** Real-time updates to items, prices, and availability without server downtime.
-* **Secure Authentication:** Custom middleware (`middleware/auth.js`) for route protection and session validation.
-* **Full-Cycle Order Flow:** Seamless journey from browsing and cart management to checkout and order fulfillment.
-* **Modular Architecture:** Logical separation of User, Admin, and Auth routes for easy maintenance.
+##  Technologies Used
 
----
+Based on the project files and architecture:
 
-## 🛠️ Architecture & Design
+* **Frontend:**
+* **HTML5:** (User pages like `kitchens.html`, `cart.html` and Admin dashboards)
+* **JavaScript (Vanilla):** (Client-side logic in `js/` folder like `cart.js`, `api.js`)
+* **CSS3:** (For styling user and admin interfaces)
 
-### Design Philosophy
-The project follows the **MVC (Model-View-Controller)** pattern, adapted for a modern API-centric workflow:
 
-1.  **Separation of Concerns:** Frontend logic (API calls, data fetching) is kept separate from HTML views.
-2.  **Middleware-First Approach:** A "secure by default" strategy where requests pass through security layers before reaching controllers.
-3.  **Service-Oriented Backend:** The backend acts as a RESTful API provider, while the client handles presentation.
+* **Backend:**
+* **Node.js:** Server-side runtime environment.
+* **Express.js:** (Implied by the `routes` and `middleware` structure)
+* **REST API:** Structured routing for `kitchens`, `orders`, and `auth`.
 
-### Component Breakdown
-* **Backend Core:** Express.js initializes the app, CORS settings, and route aggregation.
-* **API Layer (`backend/routes`):** Defines endpoints for Auth, Admin, and Order processing.
-* **Frontend Logic (`frontend/js`):** Vanilla JS acts as the "Controller," using `api.js` as a central HTTP client wrapper.
 
----
+* **Database:**
+* **MySQL:** Managed via `config/database.js`.
 
-## 📂 Project Structure
 
-```bash
+
+##  Project Structure
+
+This diagram reflects the exact folder hierarchy from your project source code:
+
+```text
 GHOST-KITCHEN/
-├── backend/                  # Server-Side Logic
+│
+├── backend/                     # BACKEND: API & Database Logic
 │   ├── config/
-│   │   └── database.js       # Database Connection
+│   │   └── database.js          # MySQL connection configuration
 │   ├── middleware/
-│   │   └── auth.js           # Security Middleware
-│   ├── routes/               # API Endpoints
+│   │   └── auth.js              # Token verification/Protection logic
+│   ├── routes/                  # API Route Definitions
 │   │   ├── admin.js
 │   │   ├── auth.js
 │   │   ├── dashboard.js
@@ -60,120 +56,102 @@ GHOST-KITCHEN/
 │   │   ├── menu.js
 │   │   ├── order.js
 │   │   └── user.js
-│   └── server/               # Server Entry Points
-│       ├── index.js
-│       └── server.js
+│   └── server/
+│       └── index.js             # Server initialization logic
 │
-├── frontend/                 # Client-Side Interface
-│   ├── admin/                # Admin & Kitchen Views
-│   ├── js/                   # Client-Side Logic (Controllers)
-│   │   ├── api.js            # Central API Handler
+├── frontend/                    # FRONTEND: UI & Client Logic
+│   ├── admin/                   # Admin & Kitchen Owner Panels
+│   │   ├── admin-dashboard.html
+│   │   └── kitchen-dashboard.html
+│   ├── js/                      # Client-side JavaScript
+│   │   ├── admin.js
+│   │   ├── api.js               # Centralized API calls
 │   │   ├── auth.js
 │   │   ├── cart.js
 │   │   ├── checkout.js
-│   │   └── main.js
-│   └── user-pages/           # Public Customer Views
-│       ├── index.html
+│   │   ├── kitchens.js
+│   │   ├── main.js
+│   │   └── orders.js
+│   └── user-pages/              # Customer-facing HTML Pages
+│       ├── 404.html
+│       ├── about.html
+│       ├── cart.html
+│       ├── checkout.html
+│       ├── contact.html
+│       ├── index.html           # Main Landing Page
+│       ├── kitchens.html
+│       ├── kitchen-detail.html
 │       ├── login.html
-│       └── ...
+│       ├── order-confirmation.html
+│       ├── privacy.html
+│       └── register.html
 │
-├── .env                      # Environment Variables
-├── package.json              # Dependencies
-└── server.js                 # Root entry
-
-
-```markdown
-
-## 💻 Tech Stack
-
-### Backend Ecosystem
-* **Node.js:** Core runtime environment for executing JavaScript server-side.
-* **Express.js:** Web framework handling routing, middleware, and API endpoints.
-* **Database:** SQL/NoSQL integration (Configured via `config/database.js`).
-* **Dotenv:** Secure environment variable management for API keys and ports.
-
-### Frontend Ecosystem
-* **HTML5/CSS3:** Semantic structure and responsive styling.
-* **Vanilla JavaScript (ES6+):** DOM manipulation and client-side logic.
-* **Fetch API:** Native asynchronous communication with the backend.
-
----
-
-## ⚡ Workflow
-
-1.  **Initialization:** The server starts and establishes a connection to the database.
-2.  **User Entry:** Customer lands on `index.html`; `kitchens.js` triggers and fetches restaurant data from the API.
-3.  **Authentication:** Users log in via `login.html`; credentials are validated through the `auth.js` middleware.
-4.  **Transaction:** Items are added to `cart.js` -> The Checkout process triggers `order.js`.
-5.  **Fulfillment:** The order data appears instantly on the `kitchen-dashboard.html` view for staff.
-
----
-
-## ⚙️ Installation & Setup
-
-Follow these steps to set up the environment locally.
-
-### Prerequisites
-* **Node.js** (v16.0 or higher)
-* **NPM** (Node Package Manager)
-* **Git** (Version Control)
-
-### Step-by-Step Guide
-
-**1. Clone the Repository**
-```bash
-git clone [https://github.com/your-username/ghost-kitchen-platform.git](https://github.com/your-username/ghost-kitchen-platform.git)
-cd ghost-kitchen-platform
+├── .env                         # Environment variables (Sensitive data)
+├── .gitignore                   # Files to ignore in Git
+├── package.json                 # Project metadata & dependencies
+├── package-lock.json            # Exact version lockfile
+└── server.js                    # Application Entry Point
 
 ```
 
-**2. Install Dependencies**
+##  Installation & Setup Guide
 
+### Prerequisites
+
+* **Node.js** installed on your machine.
+* **XAMPP** (or any MySQL server) running.
+
+### Step 1: Clone & Install
+
+1. Download the project folder.
+2. Open your terminal in the root directory `GHOST-KITCHEN`.
+3. Install the backend dependencies:
 ```bash
 npm install
 
 ```
 
-**3. Configure Environment**
-Create a `.env` file in the root directory and add the following configuration:
 
-```env
-PORT=3000
-DB_URI=your_database_connection_string
-JWT_SECRET=your_secret_key
 
-```
+### Step 2: Database Configuration
 
-**4. Start the Application**
-You can run the server in development mode (with auto-restart) or standard production mode:
+1. Create a database named `ghost_kitchen` in your MySQL server.
+2. Import the provided SQL file.
+3. Check `backend/config/database.js` to ensure your MySQL username and password match your local setup.
+
+### Step 3: Environment Setup
+
+1. Open the `.env` file.
+2. Ensure your `PORT` and Database credentials are defined here.
+
+### Step 4: Run the Application
+
+Start the backend server:
 
 ```bash
-# For Development (requires nodemon)
-npm run dev
-
-# Standard Start
 node server.js
 
 ```
 
-### Access the Application
+* **User Interface:** Access via `http://localhost:3000/user-pages/index.html` (or your configured static path).
+* **Admin Dashboard:** Access via `http://localhost:3000/frontend/admin/admin-dashboard.html`.
 
-* **User Interface:** [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000)
-* **Admin Interface:** [http://localhost:3000/admin/admin-dashboard.html](https://www.google.com/search?q=http://localhost:3000/admin/admin-dashboard.html)
+## 📸 Website UI Screenshots
+
+### 1. Landing Page & Kitchen Selection
+
+*(Add screenshot of `index.html` or `kitchens.html` here)*
+
+### 2. Ordering Process
+
+*(Add screenshot of `cart.html` or `checkout.html` here)*
+
+### 3. Admin Dashboard
+
+*(Add screenshot of `admin-dashboard.html` here)*
 
 ---
 
-## 🔮 Future Roadmap
+### **Next Step**
 
-* [ ] **Real-time WebSockets:** Replace AJAX polling with `socket.io` for instant order notifications on the kitchen dashboard.
-* [ ] **Payment Gateway:** Direct integration with Stripe or Razorpay within `checkout.js`.
-* [ ] **AI Analytics:** Implement algorithms to analyze historical order data and predict inventory needs per kitchen.
-
-```
-
-### Next Step
-In your "Installation" section, you mentioned `npm run dev`. For that to work, your `package.json` needs a specific script entry.
-
-Would you like me to generate the correct `package.json` file content to ensure the `dev` command works (using `nodemon`)?
-
-```
+Would you like me to generate a **"Future Scope"** section for this README, explaining features like "AI-based recommendations" or "Live Delivery Tracking" to impress your external examiner?
