@@ -35,9 +35,7 @@ Based on the project files and architecture:
 * **MySQL:** Managed via `config/database.js`.
 
 
-
 ###  Team Members
-
 * **Prasanna Dolas**
 * **Omkar Ugale**
 * **Rushikesh Ahierkar**
@@ -45,22 +43,12 @@ Based on the project files and architecture:
 
 ###  Project Contributions
 
-| Module / Component | Contributors | Responsibilities |
-| --- | --- | --- |
-| **Frontend UI/UX** | **Prasanna Dolas**<br>
-
-<br>**Omkar Ugale** | Designed the Home Page, Brand Menu interface, and implemented the dynamic "Add to Cart" functionality. |
-| **Authentication & Forms** | **Omkar Ugale**<br>
-
-<br>**Rushikesh Ahierkar** | Built the Login/Signup system, user session management, and the secure Checkout page. |
-| **Backend Logic** | **Aryan Gamre**<br>
-
-<br>**Prasanna Dolas** | Developed the Node.js/Express API endpoints and handled server-side data validation. |
-| **Database Architecture** | **Rushikesh Ahierkar**<br>
-
-<br>**Prasanna Dolas** | Designed the MySQL schema, managed SQL queries for order processing, and built the Admin/Kitchen logic. |
-
-
+|  Module / Component |  Contributors |  Key Responsibilities |
+| :--- | :--- | :--- |
+| **Frontend UI/UX** | **Prasanna Dolas**<br>**Omkar Ugale** | Designed the Home Page, Brand Menu interface, and implemented the dynamic "Add to Cart" functionality using React state. |
+| **Authentication & Forms** | **Omkar Ugale**<br>**Rushikesh Ahierkar** | Built the secure Login/Signup system, managed user sessions, and developed the Checkout page with form validation. |
+| **Backend Logic** | **Aryan Gamre**<br>**Prasanna Dolas** | Developed the Node.js/Express API endpoints, configured routing, and handled server-side data validation. |
+| **Database Architecture** | **Rushikesh Ahierkar**<br>**Prasanna Dolas** | Designed the MySQL schema, optimized SQL queries for order processing, and built the Admin/Kitchen dashboard logic. |
 
 
 ##  Project Structure
