@@ -136,25 +136,25 @@ node server.js
 * **User Interface:** Access via `http://localhost:3000/user-pages/index.html` (or your configured static path).
 * **Admin Dashboard:** Access via `http://localhost:3000/frontend/admin/admin-dashboard.html`.
 
-## 📸 Website UI Screenshots
+##  Website UI Screenshots
 
 ### 1. Landing Page & Kitchen Selection
 ![alt text](screenshot/image.png)
 ![alt text](screenshot/image-1.png)
 
 ### 2. Ordering Process
-**Kitchens page**
+### Kitchens page
 ![alt text](screenshot/image-2.png)
-**Cart page**
+### Cart page
 ![alt text](screenshot/image-3.png)
-**Checkout page**
+### Checkout page
 ![alt text](screenshot/image-4.png)
 ![alt text](screenshot/image-5.png)
-**Order History page**
+### Order History page
 ![alt text](screenshot/image-6.png)
 
 
-## 🏁 Conclusion
+##  Conclusion
 
 The successful development of the **Ghost Kitchen Management System** marks a significant milestone in bridging the gap between theoretical concepts and practical software engineering. This project addresses the growing demand in the food delivery industry by providing a centralized, efficient platform for managing virtual kitchen operations without the need for physical dining spaces.
 
