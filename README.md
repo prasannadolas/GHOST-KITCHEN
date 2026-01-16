@@ -36,6 +36,33 @@ Based on the project files and architecture:
 
 
 
+###  Team Members
+
+* **Prasanna Dolas**
+* **Omkar Ugale**
+* **Rushikesh Ahierkar**
+* **Aryan Gamre**
+
+###  Project Contributions
+
+| Module / Component | Contributors | Responsibilities |
+| --- | --- | --- |
+| **Frontend UI/UX** | **Prasanna Dolas**<br>
+
+<br>**Omkar Ugale** | Designed the Home Page, Brand Menu interface, and implemented the dynamic "Add to Cart" functionality. |
+| **Authentication & Forms** | **Omkar Ugale**<br>
+
+<br>**Rushikesh Ahierkar** | Built the Login/Signup system, user session management, and the secure Checkout page. |
+| **Backend Logic** | **Aryan Gamre**<br>
+
+<br>**Prasanna Dolas** | Developed the Node.js/Express API endpoints and handled server-side data validation. |
+| **Database Architecture** | **Rushikesh Ahierkar**<br>
+
+<br>**Prasanna Dolas** | Designed the MySQL schema, managed SQL queries for order processing, and built the Admin/Kitchen logic. |
+
+
+
+
 ##  Project Structure
 
 This diagram reflects the exact folder hierarchy from your project source code:
