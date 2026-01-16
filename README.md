@@ -139,19 +139,27 @@ node server.js
 ## 📸 Website UI Screenshots
 
 ### 1. Landing Page & Kitchen Selection
-
-*(Add screenshot of `index.html` or `kitchens.html` here)*
+![alt text](image.png)
+![alt text](image-1.png)
 
 ### 2. Ordering Process
+![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
 
-*(Add screenshot of `cart.html` or `checkout.html` here)*
 
-### 3. Admin Dashboard
+## 🏁 Conclusion
 
-*(Add screenshot of `admin-dashboard.html` here)*
+The successful development of the **Ghost Kitchen Management System** marks a significant milestone in bridging the gap between theoretical concepts and practical software engineering. This project addresses the growing demand in the food delivery industry by providing a centralized, efficient platform for managing virtual kitchen operations without the need for physical dining spaces.
+
+**Key Achievements:**
+
+* **Full-Stack Implementation:** We successfully migrated and implemented a robust backend using **Node.js**, ensuring a scalable and non-blocking architecture capable of handling multiple concurrent requests.
+* **Complex Data Management:** The project effectively solved the "Many-to-Many" relationship challenge by utilizing **MySQL**. We structured a relational database that seamlessly links multiple kitchens, diverse menus, and customer orders.
+* **Operational Efficiency:** The application streamlines the entire lifecycle of a food order—from customer selection and cart management to kitchen processing and admin oversight—reducing manual errors and improving delivery turnaround times.
+
+In summary, this project not only fulfills the requirements of our **BSc IT Final Year curriculum** but also demonstrates a comprehensive understanding of modern web technologies, database architecture, and system design. It stands as a functional prototype ready for further scaling and real-world deployment.
 
 ---
-
-### **Next Step**
-
-Would you like me to generate a **"Future Scope"** section for this README, explaining features like "AI-based recommendations" or "Live Delivery Tracking" to impress your external examiner?
