@@ -1,7 +1,7 @@
 
 #  Ghost Kitchen Management System
 
-> **Final Year Project | BSc Information Technology (2025-2026)**
+> **Final Year Project | Sathaye College | BSc Information Technology (2023-2026)**
 
 ##  Introduction
 
@@ -143,10 +143,14 @@ node server.js
 ![alt text](screenshot/image-1.png)
 
 ### 2. Ordering Process
+**Kitchens page**
 ![alt text](screenshot/image-2.png)
+**Cart page**
 ![alt text](screenshot/image-3.png)
+**Checkout page**
 ![alt text](screenshot/image-4.png)
 ![alt text](screenshot/image-5.png)
+**Order History page**
 ![alt text](screenshot/image-6.png)
 
 
@@ -159,7 +163,5 @@ The successful development of the **Ghost Kitchen Management System** marks a si
 * **Full-Stack Implementation:** We successfully migrated and implemented a robust backend using **Node.js**, ensuring a scalable and non-blocking architecture capable of handling multiple concurrent requests.
 * **Complex Data Management:** The project effectively solved the "Many-to-Many" relationship challenge by utilizing **MySQL**. We structured a relational database that seamlessly links multiple kitchens, diverse menus, and customer orders.
 * **Operational Efficiency:** The application streamlines the entire lifecycle of a food order—from customer selection and cart management to kitchen processing and admin oversight—reducing manual errors and improving delivery turnaround times.
-
-In summary, this project not only fulfills the requirements of our **BSc IT Final Year curriculum** but also demonstrates a comprehensive understanding of modern web technologies, database architecture, and system design. It stands as a functional prototype ready for further scaling and real-world deployment.
 
 ---
