@@ -48,7 +48,7 @@ Based on the project files and architecture:
 | **Frontend UI/UX** | **Prasanna Dolas**<br>**Omkar Ugale** | Designed the Home Page, Brand Menu interface, and implemented the dynamic "Add to Cart" functionality using React state. |
 | **Authentication & Forms** | **Omkar Ugale**<br>**Rushikesh Ahierkar** | Built the secure Login/Signup system, managed user sessions, and developed the Checkout page with form validation. |
 | **Backend Logic** | **Aryan Gamre**<br>**Prasanna Dolas** | Developed the Node.js/Express API endpoints, configured routing, and handled server-side data validation. |
-| **Database Architecture** | **Rushikesh Ahierkar**<br>**Prasanna Dolas** | Designed the MySQL schema, optimized SQL queries for order processing, and built the Admin/Kitchen dashboard logic. |
+| **Database Architecture** | **Rushikesh Ahierkar**<br>**Prasanna Dolas**<br>**Aryan Gamre** | Designed the MySQL schema, optimized SQL queries for order processing, and built the Admin/Kitchen dashboard logic. |
 
 
 ##  Project Structure
