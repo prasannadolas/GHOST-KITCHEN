@@ -6,7 +6,7 @@ const path = require('path');
 require('dotenv').config();
 
 const authRoutes = require('../routes/auth');
-const kitchenRoutes = require('../routes/kitchenS');
+const kitchenRoutes = require('../routes/kitchens');
 const orderRoutes = require('../routes/order');
 const menuRoutes = require('../routes/menu');
 const adminRoutes = require('../routes/admin');

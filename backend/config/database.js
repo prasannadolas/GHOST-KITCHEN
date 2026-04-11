@@ -1,7 +1,9 @@
 const mysql = require('mysql2/promise');
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' }); // Adjust path if your .env is in the root
 
-const dbConfig = {
+// Create a connection pool instead of a single connection
+// This handles multiple concurrent requests efficiently
+const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
@@ -9,28 +11,25 @@ const dbConfig = {
     port: process.env.DB_PORT || 3306,
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0,
-    acquireTimeout: 60000,
-    timeout: 60000
-};
+    queueLimit: 0
+});
 
-// Create connection pool
-const pool = mysql.createPool(dbConfig);
-
-// Test database connection
-async function testConnection() {
+// Test the connection immediately when the server starts
+const testConnection = async () => {
     try {
         const connection = await pool.getConnection();
-        console.log(' Database connected successfully');
-        connection.release();
-        return true;
+        console.log('✅ Database connected successfully to:', process.env.DB_NAME || 'ghost_kitchen');
+        connection.release(); // Always release the connection back to the pool
     } catch (error) {
-        console.error(' Database connection failed:', error.message);
-        return false;
+        console.error('❌ Database connection failed:');
+        console.error(error.message);
+        // Do not kill the process in development, just warn
+        if (process.env.NODE_ENV === 'production') {
+            process.exit(1);
+        }
     }
-}
+};
 
-// Initialize database connection
 testConnection();
 
 module.exports = pool;

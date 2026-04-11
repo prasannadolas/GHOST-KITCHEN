@@ -1,0 +1,97 @@
+import axios from 'axios';
+
+// Create an Axios instance with your base URL
+const api = axios.create({
+    baseURL: 'http://localhost:5000/api', // Make sure this matches your backend!
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
+
+// Add an interceptor to automatically attach the token to every request
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+}, (error) => {
+    return Promise.reject(error);
+});
+
+export const getKitchens = async (filters = {}) => {
+    try {
+        const params = new URLSearchParams(filters);
+        const response = await api.get(`/kitchens?${params}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching kitchens:", error);
+        throw error;
+    }
+};
+
+export const loginUser = async (credentials) => {
+    try {
+        const response = await api.post('/auth/login', credentials);
+        return response.data;
+    } catch (error) {
+        // Axios wraps the backend error message inside error.response.data
+        throw new Error(error.response?.data?.error || 'Login failed');
+    }
+};
+
+export const registerUser = async (userData) => {
+    try {
+        const response = await api.post('/auth/register', userData);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.error || 'Registration failed');
+    }
+};
+
+export const getKitchen = async (id) => {
+    try {
+        const response = await api.get(`/kitchens/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.error || 'Failed to fetch kitchen details');
+    }
+};
+
+export const createOrder = async (orderData) => {
+    try {
+        const response = await api.post('/orders', orderData);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.error || 'Failed to place order');
+    }
+};
+
+export const getOrder = async (id) => {
+    try {
+        const response = await api.get(`/orders/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.error || 'Failed to fetch order details');
+    }
+};
+
+export const getUserOrders = async () => {
+    try {
+        const response = await api.get('/orders/user');
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.error || 'Failed to fetch user orders');
+    }
+};
+
+export const updateOrderStatus = async (id, status) => {
+    try {
+        const response = await api.put(`/orders/${id}/status`, { status });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.error || 'Failed to update order status');
+    }
+};
+
+export default api;

@@ -43,7 +43,7 @@ Based on the project files and architecture:
 
 ###  Project Contributions
 
-|  Module / Component |  Contributors |  Key Responsibilities |
+|  Module / Component |  Contributors | Key Responsibilities |
 | :--- | :--- | :--- |
 | **Frontend UI/UX** | **Prasanna Dolas**<br>**Omkar Ugale** | Designed the Home Page, Brand Menu interface, and implemented the dynamic "Add to Cart" functionality using React state. |
 | **Authentication & Forms** | **Omkar Ugale**<br>**Rushikesh Ahierkar** | Built the secure Login/Signup system, managed user sessions, and developed the Checkout page with form validation. |

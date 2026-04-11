@@ -42,8 +42,9 @@ router.get('/', async (req, res) => {
             success: true,
             kitchens: kitchens.map(kitchen => ({
                 ...kitchen,
-                avg_rating: kitchen.avg_rating ? parseFloat(kitchen.avg_rating).toFixed(1) : '0.0',
-                review_count: parseInt(kitchen.review_count) || 0
+                // Map the calculated values to the keys React expects
+                rating: kitchen.avg_rating ? parseFloat(kitchen.avg_rating).toFixed(1) : (kitchen.rating || '0.0'),
+                total_reviews: parseInt(kitchen.review_count) || kitchen.total_reviews || 0
             }))
         });
     } catch (error) {

@@ -1,7 +1,7 @@
 // backend/routes/order.js
 
 const express = require('express');
-const db = require('../config/database'); // Ensure you are using the correct path to your db config
+const db = require('../config/database'); 
 const { verifyToken, verifyAdmin } = require('../middleware/auth');
 
 const router = express.Router();
@@ -12,7 +12,7 @@ router.get('/user', verifyToken, async (req, res) => {
         const userId = req.user.id;
         const { status } = req.query;
 
-        // FIX #1: Changed 'oi.price' to 'oi.unit_price' to match your database schema.
+        // FIX 1 & 2: Added JOIN to kitchens table so the frontend can display the kitchen name
         let query = `
             SELECT o.*, 
                    GROUP_CONCAT(
@@ -21,12 +21,14 @@ router.get('/user', verifyToken, async (req, res) => {
                            'name', mi.name,
                            'price', oi.unit_price,
                            'quantity', oi.quantity,
-                           'image_url', mi.image_url
+                           'image_url', mi.image_url,
+                           'kitchen', JSON_OBJECT('name', COALESCE(k.name, 'Ghost Kitchen'))
                        )
                    ) as items
             FROM orders o
             LEFT JOIN order_items oi ON o.id = oi.order_id
             LEFT JOIN menu_items mi ON oi.menu_item_id = mi.id
+            LEFT JOIN kitchens k ON mi.kitchen_id = k.id
             WHERE o.user_id = ?
         `;
         const params = [userId];
@@ -93,7 +95,6 @@ router.get('/admin', verifyToken, verifyAdmin, async (req, res) => {
 
 // Create order
 router.post('/', verifyToken, async (req, res) => {
-    // Note: This is a simplified version. A real-world scenario would use a database transaction.
     try {
         const {
             items,
@@ -158,7 +159,6 @@ router.post('/', verifyToken, async (req, res) => {
 
         const orderId = orderResult.insertId;
 
-        // FIX #2: Changed the INSERT query to use 'unit_price' and 'total_price' columns.
         for (const item of orderItemsData) {
             await db.execute(
                 'INSERT INTO order_items (order_id, menu_item_id, quantity, unit_price, total_price) VALUES (?, ?, ?, ?, ?)',
@@ -181,8 +181,8 @@ router.post('/', verifyToken, async (req, res) => {
     }
 });
 
-// Update order status
-router.put('/:id/status', verifyToken, verifyAdmin, async (req, res) => {
+// Update order status (REMOVED verifyAdmin so users can cancel their own orders)
+router.put('/:id/status', verifyToken, async (req, res) => {
     try {
         const orderId = req.params.id;
         const { status } = req.body;
@@ -191,6 +191,18 @@ router.put('/:id/status', verifyToken, verifyAdmin, async (req, res) => {
         
         if (!validStatuses.includes(status)) {
             return res.status(400).json({ error: 'Invalid status' });
+        }
+
+        // SECURITY CHECK: If user is not admin, they can ONLY cancel their own order
+        if (req.user.role !== 'admin') {
+            if (status !== 'cancelled') {
+                return res.status(403).json({ error: 'You are only allowed to cancel orders.' });
+            }
+            // Check if this order actually belongs to this user
+            const [orders] = await db.execute('SELECT user_id FROM orders WHERE id = ?', [orderId]);
+            if (orders.length === 0 || orders[0].user_id !== req.user.id) {
+                return res.status(403).json({ error: 'Not authorized to modify this order.' });
+            }
         }
 
         await db.execute(
@@ -223,8 +235,9 @@ router.get('/:id', verifyToken, async (req, res) => {
             return res.status(404).json({ error: 'Order not found' });
         }
 
+        // FIX 3: Aliased 'oi.unit_price as price' so the React confirmation page math works
         const [items] = await db.execute(`
-            SELECT oi.*, mi.name, mi.image_url, k.name as kitchen_name
+            SELECT oi.*, oi.unit_price as price, mi.name, mi.image_url, k.name as kitchen_name
             FROM order_items oi
             JOIN menu_items mi ON oi.menu_item_id = mi.id
             JOIN kitchens k ON mi.kitchen_id = k.id
