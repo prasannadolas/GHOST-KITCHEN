@@ -26,9 +26,9 @@ const Login = () => {
                 // Redirect based on role (like your old code)
                 setTimeout(() => {
                     if (response.user.role === 'admin') {
-                        navigate('/admin-dashboard');
+                        navigate('/admin/dashboard');
                     } else if (response.user.role === 'kitchen_owner') {
-                        navigate('/kitchen-dashboard');
+                        navigate('/admin/dashboard');
                     } else {
                         navigate('/'); // Send to Home
                     }

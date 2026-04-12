@@ -6,24 +6,19 @@ import { CartContext } from '../context/CartContext';
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
-    
-    // --- NEW: Toast Notification State ---
     const [showToast, setShowToast] = useState(false);
     
     const navigate = useNavigate();
     const { user, logout } = useContext(AuthContext);
     const { cartCount } = useContext(CartContext);
 
-    // --- NEW: Toast Logic ---
     useEffect(() => {
-        // We only show the toast if a user is logged in AND we haven't shown it in this session yet
         const hasBeenGreeted = sessionStorage.getItem('greeted');
 
         if (user && !hasBeenGreeted) {
             setShowToast(true);
-            sessionStorage.setItem('greeted', 'true'); // Mark as greeted so it doesn't repeat
+            sessionStorage.setItem('greeted', 'true');
 
-            // Automatically hide toast after 4 seconds
             const timer = setTimeout(() => {
                 setShowToast(false);
             }, 4000);
@@ -31,7 +26,6 @@ const Navbar = () => {
             return () => clearTimeout(timer);
         }
 
-        // If user logs out, reset the session greeting flag
         if (!user) {
             sessionStorage.removeItem('greeted');
         }
@@ -47,6 +41,9 @@ const Navbar = () => {
         setIsMobileMenuOpen(false);
         navigate('/');
     };
+
+    // Helper to check if user has dashboard access
+    const hasAdminAccess = user && (user.role === 'admin' || user.role === 'kitchen_owner');
 
     return (
         <header className="bg-white shadow-md sticky top-0 z-50 rounded-b-lg">
@@ -102,9 +99,12 @@ const Navbar = () => {
                     ) : (
                         <div className="flex items-center space-x-4">
                             <span className="font-semibold text-gray-700">Welcome, {user.fullName}</span>
-                            {user.role === 'admin' && (
-                                <Link to="/admin-dashboard" className="text-sm text-orange-600 font-medium hover:underline">Dashboard</Link>
+                            
+                            {/* FIXED: Now checks for BOTH admin and kitchen_owner */}
+                            {hasAdminAccess && (
+                                <Link to="/admin/dashboard" className="text-sm text-orange-600 font-bold hover:underline">Dashboard</Link>
                             )}
+                            
                             <button onClick={handleLogout} className="px-4 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition">Logout</button>
                         </div>
                     )}
@@ -130,7 +130,13 @@ const Navbar = () => {
                                 <Link to="/register" className="block text-center py-2 text-orange-600 font-bold">Register</Link>
                             </>
                         ) : (
-                            <button onClick={handleLogout} className="w-full py-2 bg-red-600 text-white rounded-full">Logout</button>
+                            <>
+                                {/* FIXED: Added Dashboard link to mobile view as well */}
+                                {hasAdminAccess && (
+                                    <Link to="/admin/dashboard" className="block text-center py-2 mb-2 text-orange-600 font-bold bg-orange-50 rounded-lg">Admin Dashboard</Link>
+                                )}
+                                <button onClick={handleLogout} className="w-full py-2 bg-red-600 text-white rounded-full">Logout</button>
+                            </>
                         )}
                     </div>
                 </div>
@@ -143,8 +149,8 @@ const Navbar = () => {
                         <h3 className="text-xl font-bold mb-4">Confirm Logout</h3>
                         <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
                         <div className="flex space-x-4">
-                            <button onClick={() => setShowLogoutModal(false)} className="flex-1 bg-gray-100 py-2 rounded-lg">Cancel</button>
-                            <button onClick={confirmLogout} className="flex-1 bg-red-600 text-white py-2 rounded-lg">Logout</button>
+                            <button onClick={() => setShowLogoutModal(false)} className="flex-1 bg-gray-100 py-2 rounded-lg font-bold">Cancel</button>
+                            <button onClick={confirmLogout} className="flex-1 bg-red-600 text-white py-2 rounded-lg font-bold">Logout</button>
                         </div>
                     </div>
                 </div>

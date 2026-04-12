@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -11,6 +12,12 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import OrderConfirmation from './pages/OrderConfirmation';
 import Orders from './pages/Orders';
+
+import Dashboard from './pages/admin/Dashboard';
+import OrderManagement from './pages/admin/OrderManagement';
+import MenuManagement from './pages/admin/MenuManagement';
+import AddMenuItem from './pages/admin/AddMenuItem';
+import KitchenManagement from './pages/admin/KitchenManagement'
 
 function App() {
   return (
@@ -31,6 +38,37 @@ function App() {
             {<Route path="/checkout" element={<Checkout />} />}
             {<Route path="/order-confirmation/:id" element={<OrderConfirmation />} />}
             {<Route path="/orders" element={<Orders />} />}
+
+            {/* --- PROTECTED ADMIN ROUTES --- */}
+        <Route path="/admin/dashboard" element={
+          <ProtectedRoute allowedRoles={['admin', 'kitchen_owner']}>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/admin/orders" element={
+          <ProtectedRoute allowedRoles={['admin', 'kitchen_owner']}>
+            <OrderManagement />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/admin/menu" element={
+          <ProtectedRoute allowedRoles={['admin', 'kitchen_owner']}>
+            <MenuManagement />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/menu/add" element={
+          <ProtectedRoute allowedRoles={['admin', 'kitchen_owner']}>
+            <AddMenuItem />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/kitchens" element={
+          <ProtectedRoute>
+            <KitchenManagement />
+          </ProtectedRoute>} />
+
           </Routes>
         </div>
 

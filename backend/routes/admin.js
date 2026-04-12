@@ -1,32 +1,35 @@
-// in /routes/admin.js
-
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database');
+const adminController = require('../controllers/adminController');
+const adminAuth = require('../middleware/adminAuth');
 
-// Import BOTH middleware functions
-const { verifyToken, verifyAdmin } = require('../middleware/auth');
+// --- PROTECTION ---
+// Every route below this line will automatically use the adminAuth guard.
+// If the user isn't an admin, they can't even reach these functions.
+router.use(adminAuth);
 
-// This route is protected. Only logged-in admins can access it.
-// We apply the middleware in sequence: first verify the token, then verify the admin role.
-router.get('/dashboard-stats', [verifyToken, verifyAdmin], async (req, res) => {
-    try {
-        // Since the middleware passed, we know the user is an admin.
-        // You can now fetch admin-specific data.
-        const [users] = await db.execute('SELECT COUNT(*) as userCount FROM users');
-        const [orders] = await db.execute('SELECT COUNT(*) as orderCount FROM orders');
+// --- DASHBOARD OVERVIEW ---
+// Get stats like total sales, order counts, etc.
+router.get('/stats', adminController.getDashboardStats);
 
-        res.json({
-            success: true,
-            stats: {
-                totalUsers: users[0].userCount,
-                totalOrders: orders[0].orderCount
-            }
-        });
-    } catch (error) {
-        console.error('Dashboard error:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
+// --- KITCHEN MANAGEMENT ---
+// Toggle a kitchen's status (Open/Closed)
+router.patch('/kitchens/:id/status', adminController.toggleKitchenStatus);
+// Update kitchen details (description, image, etc.)
+router.put('/kitchens/:id', adminController.updateKitchenDetails);
+
+// --- MENU MANAGEMENT ---
+// Add a new dish to a kitchen
+router.post('/menu/add', adminController.addMenuItem);
+// Update price or availability of a dish
+router.put('/menu/:id', adminController.updateMenuItem);
+// Delete a dish forever
+router.delete('/menu/:id', adminController.deleteMenuItem);
+
+// --- ORDER MANAGEMENT ---
+// See all orders (or specific kitchen orders)
+router.get('/orders', adminController.getAllOrders);
+// Update status: Pending -> Preparing -> Delivered
+router.patch('/orders/:id/status', adminController.updateOrderStatus);
 
 module.exports = router;

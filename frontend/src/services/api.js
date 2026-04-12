@@ -94,4 +94,60 @@ export const updateOrderStatus = async (id, status) => {
     }
 };
 
+// --- ADMIN & KITCHEN OWNER SERVICES ---
+
+// 1. Get Dashboard Statistics
+export const getAdminStats = async () => {
+    try {
+        const response = await api.get('/admin/stats');
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+};
+
+// 2. Toggle Kitchen Status (Open/Close)
+export const toggleKitchenStatus = async (kitchenId, isActive) => {
+    try {
+        const response = await api.patch(`/admin/kitchens/${kitchenId}/status`, { 
+            is_active: isActive 
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+};
+
+// 3. Get All Admin Orders
+export const getAdminOrders = async () => {
+    try {
+        const response = await api.get('/admin/orders');
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+};
+
+// 4. Update Order Status (Preparing, Delivered, etc.)
+export const updateAdminOrderStatus = async (orderId, status) => {
+    try {
+        const response = await api.patch(`/admin/orders/${orderId}/status`, { 
+            status: status 
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+};
+
+// 5. Delete Menu Item
+export const deleteMenuItem = async (itemId) => {
+    try {
+        const response = await api.delete(`/admin/menu/${itemId}`);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+};
+
 export default api;
