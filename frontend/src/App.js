@@ -13,6 +13,13 @@ import Checkout from './pages/Checkout';
 import OrderConfirmation from './pages/OrderConfirmation';
 import Orders from './pages/Orders';
 
+import About from './pages/About';
+import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import NotFound from './pages/NotFound';
+
 import Dashboard from './pages/admin/Dashboard';
 import OrderManagement from './pages/admin/OrderManagement';
 import MenuManagement from './pages/admin/MenuManagement';
@@ -29,7 +36,7 @@ function App() {
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* We will add these routes in the next sections: */}
+            {/* Main Pages Routes */}
             {<Route path="/login" element={<Login />} />}
             {<Route path="/register" element={<Register />} />}
             {<Route path="/kitchens" element={<Kitchens />} /> }
@@ -38,6 +45,14 @@ function App() {
             {<Route path="/checkout" element={<Checkout />} />}
             {<Route path="/order-confirmation/:id" element={<OrderConfirmation />} />}
             {<Route path="/orders" element={<Orders />} />}
+
+            {/* --- Footer-Pages ROUTES --- */}
+            {<Route path="/about" element={<About />} />}
+            {<Route path="/contact" element={<Contact />} />}
+            {<Route path="/faq" element={<FAQ />} />}
+            {<Route path="/privacy" element={<Privacy />} />}
+            {<Route path="/terms" element={<Terms />} />}
+            {<Route path="*" element={<NotFound />} />}
 
             {/* --- PROTECTED ADMIN ROUTES --- */}
         <Route path="/admin/dashboard" element={
