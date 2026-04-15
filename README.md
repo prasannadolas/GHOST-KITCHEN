@@ -18,8 +18,6 @@ We selected the **Cloud Kitchen** model for our final year project because:
 
 ## Technologies Used
 
-Based on the latest project files and architecture:
-
 * **Frontend:**
   * **React.js:** (Replaced Vanilla JS/HTML. Uses functional components, hooks like `useState` and `useEffect`, and Context API for global state like Cart and Auth).
   * **Tailwind CSS:** (Utility-first CSS framework used for all styling, replacing standard CSS3).
