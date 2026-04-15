@@ -15,24 +15,25 @@ We selected the **Cloud Kitchen** model for our final year project because:
 2. **Complex Data Handling:** It solves a "Many-to-Many" operational problem (One Platform  Many Kitchens  Many Customers), demonstrating advanced backend logic.
 3. **Real-World Utility:** It creates a centralized dashboard for managing menus, orders, and kitchen performance without physical storefronts.
 
-##  Technologies Used
 
-Based on the project files and architecture:
+## Technologies Used
+
+Based on the latest project files and architecture:
 
 * **Frontend:**
-* **HTML5:** (User pages like `kitchens.html`, `cart.html` and Admin dashboards)
-* **JavaScript (Vanilla):** (Client-side logic in `js/` folder like `cart.js`, `api.js`)
-* **CSS3:** (For styling user and admin interfaces)
-
+  * **React.js:** (Replaced Vanilla JS/HTML. Uses functional components, hooks like `useState` and `useEffect`, and Context API for global state like Cart and Auth).
+  * **Tailwind CSS:** (Utility-first CSS framework used for all styling, replacing standard CSS3).
+  * **React Router DOM:** (Handles seamless client-side routing between pages like `/kitchens`, `/admin/dashboard`, and catching `404` errors).
+  * **Axios:** (Promise-based HTTP client used to fetch data from your backend API).
 
 * **Backend:**
-* **Node.js:** Server-side runtime environment.
-* **Express.js:** (Implied by the `routes` and `middleware` structure)
-* **REST API:** Structured routing for `kitchens`, `orders`, and `auth`.
-
+  * **Node.js:** Server-side runtime environment.
+  * **Express.js:** Web framework used for structured routing (`/api/kitchens`, `/api/orders`, `/api/admin`).
+  * **JSON Web Tokens (JWT):** Secure authentication system used to generate "VIP Passes" and enforce role-based access control (Customer vs. Super Admin vs. Kitchen Owner).
+  * **MySQL2:** Promise-based Node.js driver used to execute secure SQL queries and prevent database crashes.
 
 * **Database:**
-* **MySQL:** Managed via `config/database.js`.
+  * **MySQL:** Relational database managed via `config/database.js`, storing normalized tables for `users`, `kitchens`, `menu_items`, and `orders`.
 
 
 ###  Team Members
