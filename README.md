@@ -56,56 +56,45 @@ This diagram reflects the exact folder hierarchy from your project source code:
 
 ```text
 GHOST-KITCHEN/
+├── backend/                    # Node.js & Express server environment
+│   ├── config/                 # Database connection settings (database.js)
+│   ├── controllers/            # Business logic for APIs (adminController.js, etc.)
+│   ├── middleware/             # JWT authentication & role protection (auth.js, adminAuth.js)
+│   ├── routes/                 # API endpoints (admin.js, kitchens.js, order.js, etc.)
+│   ├── server/                 # Additional server configurations
+│   ├── .env                    # Environment variables (DB URL, JWT Secret)
+│   ├── package.json            # Backend dependencies
+│   └── server.js               # Main backend entry point & server setup
 │
-├── backend/                     # BACKEND: API & Database Logic
-│   ├── config/
-│   │   └── database.js          # MySQL connection configuration
-│   ├── middleware/
-│   │   └── auth.js              # Token verification/Protection logic
-│   ├── routes/                  # API Route Definitions
-│   │   ├── admin.js
-│   │   ├── auth.js
-│   │   ├── dashboard.js
-│   │   ├── kitchens.js
-│   │   ├── menu.js
-│   │   ├── order.js
-│   │   └── user.js
-│   └── server/
-│       └── index.js             # Server initialization logic
+├── frontend/                   # React.js client application
+│   ├── public/                 # Static assets
+│   ├── src/
+│   │   ├── components/         # Reusable UI components
+│   │   │   ├── admin/          # Admin-specific components (AdminSidebar.jsx)
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   └── ProtectedRoute.jsx  # Route wrapper for authentication
+│   │   ├── context/            # Global state management
+│   │   │   ├── AuthContext.js  # Manages user login state & tokens
+│   │   │   └── CartContext.js  # Manages shopping cart state
+│   │   ├── pages/              # Main application views
+│   │   │   ├── admin/          # Protected dashboards (Menu, Kitchen, Orders)
+│   │   │   ├── Home.jsx        # Landing page
+│   │   │   ├── Kitchens.jsx    # Kitchen browsing page
+│   │   │   ├── Cart.jsx        # Shopping cart & Checkout
+│   │   │   ├── Login.jsx       # User authentication
+│   │   │   └── ...             # Static pages (About, FAQ, Privacy, Terms, 404)
+│   │   ├── services/           # External API handling
+│   │   ├── App.js              # Main React router & layout wrapper
+│   │   ├── index.css           # Global Tailwind CSS styles
+│   │   └── index.js            # React DOM entry point
+│   ├── package.json            # Frontend dependencies
+│   ├── postcss.config.js       # PostCSS configuration
+│   └── tailwind.config.js      # Tailwind CSS configuration
 │
-├── frontend/                    # FRONTEND: UI & Client Logic
-│   ├── admin/                   # Admin & Kitchen Owner Panels
-│   │   ├── admin-dashboard.html
-│   │   └── kitchen-dashboard.html
-│   ├── js/                      # Client-side JavaScript
-│   │   ├── admin.js
-│   │   ├── api.js               # Centralized API calls
-│   │   ├── auth.js
-│   │   ├── cart.js
-│   │   ├── checkout.js
-│   │   ├── kitchens.js
-│   │   ├── main.js
-│   │   └── orders.js
-│   └── user-pages/              # Customer-facing HTML Pages
-│       ├── 404.html
-│       ├── about.html
-│       ├── cart.html
-│       ├── checkout.html
-│       ├── contact.html
-│       ├── index.html           # Main Landing Page
-│       ├── kitchens.html
-│       ├── kitchen-detail.html
-│       ├── login.html
-│       ├── order-confirmation.html
-│       ├── privacy.html
-│       └── register.html
-│
-├── .env                         # Environment variables (Sensitive data)
-├── .gitignore                   # Files to ignore in Git
-├── package.json                 # Project metadata & dependencies
-├── package-lock.json            # Exact version lockfile
-└── server.js                    # Application Entry Point
-
+├── screenshot/                 # Application screenshots for documentation
+├── .gitignore                  # Git tracking exclusions
+└── README.md                   # Project documentation
 ```
 
 ![alt text](screenshot/13.png)
