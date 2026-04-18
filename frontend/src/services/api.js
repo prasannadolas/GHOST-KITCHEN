@@ -3,7 +3,7 @@ import axios from 'axios';
 // Create an Axios instance with your base URL
 // 🌐 DEPLOYMENT UPDATE: Uses Vercel's Environment Variable if available, otherwise defaults to localhost
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api', 
+    baseURL: process.env.REACT_APP_API_URL || 'https://ghost-kitchen-7ibq.onrender.com/api', 
     headers: {
         'Content-Type': 'application/json'
     }
