@@ -1,7 +1,9 @@
 
 #  Ghost Kitchen Management System
 
-> **Final Year Project | Sathaye College | BSc Information Technology (2023-2026)** > **Live Demo:** [https://ghost-kitchen-one.vercel.app/](https://ghost-kitchen-one.vercel.app/)
+> **Final Year Project | Sathaye College | BSc Information Technology (2023-2026)** <br />
+> **Live Demo:** [https://ghost-kitchen-one.vercel.app/](https://ghost-kitchen-one.vercel.app/)
+
 ##  Introduction
 This project is a fully functional web-based application designed to manage the operations of a **Ghost Kitchen** (Cloud Kitchen). Unlike traditional dining, ghost kitchens focus solely on delivery. This system connects customers with multiple virtual kitchen brands, managing the entire flow from order placement to kitchen processing.
 
