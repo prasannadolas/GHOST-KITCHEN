@@ -13,12 +13,16 @@ const adminRoutes = require('../routes/admin');
 const userRoutes = require('../routes/user');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+
+// Render will automatically inject a port here. We default to 5000 for local testing.
+const PORT = process.env.PORT || 5000;
 
 // Security middleware
 app.use(helmet());
+
+// 🌐 DEPLOYMENT UPDATE: Allow requests from anywhere (your future Vercel URL)
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:5500'],
+    origin: '*', 
     credentials: true
 }));
 
@@ -33,9 +37,6 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files
-app.use(express.static(path.join(__dirname, '../')));
-
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/kitchens', kitchenRoutes);
@@ -44,32 +45,18 @@ app.use('/api/menu', menuRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
 
-// Health check endpoint
+// Health check endpoint (Great for testing if Render is awake!)
 app.get('/api/health', (req, res) => {
     res.json({ 
         status: 'OK', 
         timestamp: new Date().toISOString(),
-        environment: process.env.NODE_ENV 
+        environment: process.env.NODE_ENV || 'production'
     });
 });
 
-// Serve HTML pages
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../index.html'));
-});
-
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, '../admin/index.html'));
-});
-
 // Handle 404 for API routes
-app.use('/api/*', (req, res) => {
-    res.status(404).json({ error: 'API endpoint not found' });
-});
-
-// Handle 404 for all other routes
 app.use('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../user-pages/404.html'));
+    res.status(404).json({ error: 'Ghost Kitchen API endpoint not found' });
 });
 
 // Global error handler
@@ -82,7 +69,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 Ghost Kitchen Server running on http://localhost:${PORT}`);
-    console.log(`📊 Admin Dashboard: http://localhost:${PORT}/admin`);
-    console.log(`🍽️ Main Website: http://localhost:${PORT}`);
+    console.log(`🚀 Ghost Kitchen API Server running on port ${PORT}`);
+    console.log(`Ready to receive requests from Vercel!`);
 });
