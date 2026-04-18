@@ -2,6 +2,7 @@
 #  Ghost Kitchen Management System
 
 > **Final Year Project | Sathaye College | BSc Information Technology (2023-2026)**
+**Live Demo:** [https://ghost-kitchen-one.vercel.app/](https://ghost-kitchen-one.vercel.app/)
 
 ##  Introduction
 This project is a fully functional web-based application designed to manage the operations of a **Ghost Kitchen** (Cloud Kitchen). Unlike traditional dining, ghost kitchens focus solely on delivery. This system connects customers with multiple virtual kitchen brands, managing the entire flow from order placement to kitchen processing.
@@ -40,14 +41,15 @@ We selected the **Cloud Kitchen** model for our final year project because:
 * **Rushikesh Ahierkar**
 * **Aryan Gamre**
 
-###  Project Contributions
+## Project Contributions
 
-|  Module / Component |  Contributors | Key Responsibilities |
+| Module / Component | Contributors | Key Responsibilities |
 | :--- | :--- | :--- |
-| **Frontend UI/UX** | **Prasanna Dolas**<br>**Omkar Ugale** | Designed the Home Page, Brand Menu interface, and implemented the dynamic "Add to Cart" functionality using React state. |
-| **Authentication & Forms** | **Omkar Ugale**<br>**Rushikesh Ahierkar** | Built the secure Login/Signup system, managed user sessions, and developed the Checkout page with form validation. |
-| **Backend Logic** | **Aryan Gamre**<br>**Prasanna Dolas** | Developed the Node.js/Express API endpoints, configured routing, and handled server-side data validation. |
-| **Database Architecture** | **Rushikesh Ahierkar**<br>**Prasanna Dolas**<br>**Aryan Gamre** | Designed the MySQL schema, optimized SQL queries for order processing, and built the Admin/Kitchen dashboard logic. |
+| **Frontend UI/UX** | **Prasanna Dolas**<br>**Omkar Ugale** | Developed React components, Tailwind styling, and Vercel deployment configuration. |
+| **Authentication & Auth** | **Omkar Ugale**<br>**Rushikesh Ahierkar** | Implemented JWT logic, session persistence, and frontend route guarding. |
+| **Backend API** | **Aryan Gamre**<br>**Prasanna Dolas** | Developed Express routes, Render server configuration, and SSL database pooling. |
+| **Database Architecture** | **Rushikesh Ahierkar**<br>**Prasanna Dolas** | Normalized MySQL schema design and migration to TiDB Cloud. |
+
 
 
 ##  Project Structure
@@ -99,47 +101,62 @@ GHOST-KITCHEN/
 
 ![alt text](screenshot/13.png)
 
+## Deployment & Hosting Architecture
+
+The project utilizes a **Production-Grade Cloud Stack** to ensure 24/7 availability:
+
+1.  **Frontend:** Deployed on **Vercel** with Continuous Integration (CI/CD) via GitHub.
+2.  **Backend:** Deployed on **Render** (Web Service) using Node.js 20+ environment.
+3.  **Database:** Hosted on **TiDB Cloud**, utilizing an encrypted connection string for maximum data security.
+
+-----
+
 ##  Installation & Setup Guide
 
 ### Prerequisites
 
-* **Node.js** installed on your machine.
-* **XAMPP** (or any MySQL server) running.
+  * **Node.js** (v18 or higher)
+  * **GitHub Account** (for deployment)
+  * **TiDB Cloud Account** (or local MySQL)
 
 ### Step 1: Clone & Install
 
-1. Download the project folder.
-2. Open your terminal in the root directory `GHOST-KITCHEN`.
-3. Install the backend dependencies:
 ```bash
+# Clone the repository
+git clone https://github.com/prasannadolas/GHOST-KITCHEN.git
+
+# Install Backend dependencies
+cd backend
 npm install
 
+# Install Frontend dependencies
+cd ../frontend
+npm install
 ```
 
+### Step 2: Environment Configuration
 
+Create a `.env` file in the `backend/` folder:
 
-### Step 2: Database Configuration
+```env
+DB_URL=mysql://[user]:[pass]@[host]:4000/test?ssl={"rejectUnauthorized":true}
+JWT_SECRET=your_secret_key
+JWT_EXPIRES_IN=7d
+NODE_ENV=production
+```
 
-1. Create a database named `ghost_kitchen` in your MySQL server.
-2. Import the provided SQL file.
-3. Check `backend/config/database.js` to ensure your MySQL username and password match your local setup.
-
-### Step 3: Environment Setup
-
-1. Open the `.env` file.
-2. Ensure your `PORT` and Database credentials are defined here.
-
-### Step 4: Run the Application
-
-Start the backend server:
+### Step 3: Running the App
 
 ```bash
+# Start Backend (from backend folder)
 node server.js
 
+# Start Frontend (from frontend folder)
+npm start
 ```
 
-* **User Interface:** Access via `http://localhost:3000/user-pages/index.html` (or your configured static path).
-* **Admin Dashboard:** Access via `http://localhost:3000/frontend/admin/admin-dashboard.html`.
+-----
+
 
 ##  Website UI Screenshots
 
@@ -169,4 +186,8 @@ The successful development of the **Ghost Kitchen Management System** marks a si
 * **Complex Data Management:** The project effectively solved the "Many-to-Many" relationship challenge by utilizing **MySQL**. We structured a relational database that seamlessly links multiple kitchens, diverse menus, and customer orders.
 * **Operational Efficiency:** The application streamlines the entire lifecycle of a food order—from customer selection and cart management to kitchen processing and admin oversight—reducing manual errors and improving delivery turnaround times.
 
----
+-----
+
+**Sathaye College | Department of Information Technology | 2026**
+
+-----
