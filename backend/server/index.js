@@ -13,6 +13,7 @@ const adminRoutes = require('../routes/admin');
 const userRoutes = require('../routes/user');
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Render will automatically inject a port here. We default to 5000 for local testing.
 const PORT = process.env.PORT || 5000;
