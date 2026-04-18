@@ -2,7 +2,6 @@
 #  Ghost Kitchen Management System
 
 > **Final Year Project | Sathaye College | BSc Information Technology (2023-2026)**
-
   **Live Demo:** [https://ghost-kitchen-one.vercel.app/](https://ghost-kitchen-one.vercel.app/)
 
 ##  Introduction
